@@ -32,6 +32,9 @@ gem "stripe"
 # Active Storage for image uploads
 gem "active_storage_validations"
 
+# Faker for data
+gem "faker"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
