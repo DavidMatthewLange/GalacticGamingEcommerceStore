@@ -1,0 +1,12 @@
+<h1>Star Wars Games</h1>
+<div class="products">
+  <% @products.each do |product| %>
+    <div class="product">
+      <%= link_to product_path(product) do %>
+        <%= image_tag product.image.variant(resize_to_limit: [200, 200]) %>
+        <h3><%= product.title %></h3>
+        <p><%= product.price %></p>
+      <% end %>
+    </div>
+  <% end %>
+</div>
