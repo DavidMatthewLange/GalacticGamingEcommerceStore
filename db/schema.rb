@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_15_110748) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_15_113234) do
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -47,6 +47,26 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_15_110748) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "product_categories", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_product_categories_on_category_id"
+    t.index ["product_id", "category_id"], name: "index_product_categories_on_product_id_and_category_id", unique: true
+    t.index ["product_id"], name: "index_product_categories_on_product_id"
+  end
+
+  create_table "product_platforms", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "platform_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["platform_id"], name: "index_product_platforms_on_platform_id"
+    t.index ["product_id", "platform_id"], name: "index_product_platforms_on_product_id_and_platform_id", unique: true
+    t.index ["product_id"], name: "index_product_platforms_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -73,6 +93,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_15_110748) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
+  add_foreign_key "product_categories", "categories"
+  add_foreign_key "product_categories", "products"
+  add_foreign_key "product_platforms", "platforms"
+  add_foreign_key "product_platforms", "products"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "platforms"
 end

@@ -1,3 +1,4 @@
 class Platform < ApplicationRecord
-  has_many :products
+  has_many :product_platforms
+  has_many :products, through: :product_platforms
 end
