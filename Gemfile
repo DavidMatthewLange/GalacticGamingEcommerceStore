@@ -16,6 +16,22 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
+
+# Postgresql
+gem "pg"
+
+# HTTParty for requests to API
+gem "httparty"
+
+# Devise for user authentication
+gem "devise"
+
+# Stripe for payment processing
+gem "stripe"
+
+# Active Storage for image uploads
+gem "active_storage_validations"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
