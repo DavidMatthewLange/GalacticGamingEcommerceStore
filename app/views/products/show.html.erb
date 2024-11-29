@@ -1,5 +1,5 @@
-<h1><%= @product.title %></h1>
-<%= image_tag @product.image.variant(resize_to_limit: [300, 300]) %>
+<h1><%= @product.name %></h1>
+<!--image tag here-->
 <p><%= @product.description %></p>
 <p>Price: <%= @product.price %></p>
 <%= link_to 'Back to Products', products_path %>

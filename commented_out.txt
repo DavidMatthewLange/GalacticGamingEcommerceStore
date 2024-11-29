@@ -1,3 +1,13 @@
+ product index
+ <%= image_tag product.image.variant(resize_to_limit: [200, 200]) %>
+
+ product show
+<%= image_tag @product.image.variant(resize_to_limit: [300, 300]) %>
+
+
+
+
+
 <h1>Galactic Gaming</h1>
 <h2>Products</h2>
 <div class="products">

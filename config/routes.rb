@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :products, only: [ :index, :show ]
-  get "products/index"
-  get "products/show"
+  resources :products
+  resources :order, only: %i[index show]
+  resources :platform
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
