@@ -24,7 +24,8 @@ gem "pg"
 gem "httparty"
 
 # Devise for user authentication
-gem "devise"
+gem "devise", "~> 4.9.4"
+gem "activeadmin", "~> 3.2.5"
 
 # Stripe for payment processing
 gem "stripe"
@@ -33,7 +34,7 @@ gem "stripe"
 gem "active_storage_validations"
 
 # Faker for data
-gem "faker"
+gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "main"
 
 # Apicalypse for API fetching
 gem "ruby-apicalypse"
