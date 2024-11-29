@@ -1,9 +1,9 @@
 class Product < ApplicationRecord
   # Many-to-many relationship with both Categories and Products
-  has_many :product_categories
+  has_many :product_categories, dependent: :destroy
   has_many :categories, through: :product_categories
 
-  has_many :product_platforms
+  has_many :product_platforms, dependent: :destroy
   has_many :platforms, through: :product_platforms
 
   has_many :order_items
