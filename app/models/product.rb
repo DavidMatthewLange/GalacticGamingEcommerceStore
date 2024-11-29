@@ -13,4 +13,29 @@ class Product < ApplicationRecord
 
   validates :name, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0 }
+
+  def self.ransackable_associations(auth_object = nil)
+  [ "categories",
+    "image_attachment",
+    "image_blob",
+    "order_items",
+    "orders",
+    "platforms",
+    "product_categories",
+    "product_platforms" ]
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "category_id",
+     "created_at",
+     "description",
+     "id",
+     "id_value",
+     "image_url",
+     "name",
+     "platform_id",
+     "price",
+     "stock_qty",
+     "updated_at" ]
+  end
 end
