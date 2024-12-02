@@ -13,6 +13,18 @@ class Product < ApplicationRecord
 
   validates :name, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0 }
+  validates :categories, presence: true
+  validates :platforms, presence: true
+
+  # Displays the image uploaded by admin, otherwise fallback to IGDB API image.
+  def display_image
+    if
+      image.attached?
+        image
+    else
+      image_url
+    end
+  end
 
   def self.ransackable_associations(auth_object = nil)
   [ "categories",

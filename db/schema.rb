@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_29_192950) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_29_214142) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -127,12 +127,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_192950) do
     t.decimal "price"
     t.integer "stock_qty"
     t.string "image_url"
-    t.integer "category_id"
-    t.integer "platform_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_products_on_category_id"
-    t.index ["platform_id"], name: "index_products_on_platform_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -153,6 +149,4 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_192950) do
   add_foreign_key "product_categories", "products"
   add_foreign_key "product_platforms", "platforms"
   add_foreign_key "product_platforms", "products"
-  add_foreign_key "products", "categories"
-  add_foreign_key "products", "platforms"
 end
