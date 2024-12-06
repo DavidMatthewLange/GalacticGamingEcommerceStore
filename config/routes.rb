@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  get "platforms/index"
+  get "platforms/show"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :products
-  resources :order, only: %i[index show]
-  resources :platform
+  resources :orders, only: %i[index show]
+  resources :platforms
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

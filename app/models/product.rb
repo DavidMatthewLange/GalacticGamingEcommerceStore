@@ -9,12 +9,21 @@ class Product < ApplicationRecord
   has_many :order_items
   has_many :orders, through: :order_items # Associate Products and Orders through OrderItems
 
+  # For ActiveStorage image uploads
   has_one_attached :image
 
-  validates :name, presence: true
+  validates :name, :categories, :platforms, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0 }
-  validates :categories, presence: true
-  validates :platforms, presence: true
+
+  # Fetches and attaches image from the API
+  def attach_image_from_api(url)
+    return unless url.present?
+
+    io = URI.open(url)
+    image.attach(io: io, filename: "#{SecureRandom.uuid}.jpg")
+  rescue => e
+    Rails.logger.error("Failed to attach image: #{e.message}")
+  end
 
   # Displays the image uploaded by admin, otherwise fallback to IGDB API image.
   def display_image
