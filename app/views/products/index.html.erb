@@ -1,13 +1,38 @@
 <h1>Galactic Gaming</h1>
 <h2>Products</h2>
-<div class="products">
-  <% @products.each do |product| %>
-    <div class="product">
-      <%= link_to product_path(product) do %>
-      <!--image tag here-->
-        <h3><%= product.name %></h3>
-        <p><%= product.price %></p>
-      <% end %>
+
+<div class="search-form">
+  <%= form_with(url: products_path, method: :get, local: true) do %>
+    <div>
+      <%= label_tag :search, "Search Products" %>
+      <%= text_field_tag :search, params[:search], placeholder: "Enter keyword" %>
     </div>
+
+    <div>
+      <%= label_tag :category, "Filter by Category" %>
+      <%= select_tag :category,
+          options_for_select([["All Categories", "all"]] + @categories.map { |c| [c.name, c.id] }, selected: params[:category]),
+          include_blank: false %>
+    </div>
+
+    <div>
+      <%= submit_tag "Search", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="products">
+  <% if @products.any? %>
+    <% @products.each do |product| %>
+      <div class="product">
+        <%= link_to product_path(product) do %>
+        <!--image tag here-->
+          <h3><%= product.name %></h3>
+          <p><%= product.price %></p>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No products found.</p>
   <% end %>
 </div>

@@ -9,9 +9,9 @@
 
   <!-- Display the product name -->
   <h3><%= product.name %></h3>
+  <h4><%= number_to_currency(product.price) %></h4>
 
   <!-- Display the product description -->
   <p>
     <%= product.description %><br>
-    <%= number_to_currency(product.price) %>
   </p>
