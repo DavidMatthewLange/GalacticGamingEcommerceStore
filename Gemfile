@@ -48,6 +48,9 @@ gem "ruby-apicalypse"
 # DotEnv Rails
 gem "dotenv-rails"
 
+# Kaminari
+gem "kaminari"
+
 gem "sassc-rails"
 
 gem "image_processing", "~> 1.2"
