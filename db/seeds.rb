@@ -18,11 +18,8 @@ platforms_data = FetchIgdbData.fetch_consoles
 # Create platforms from console API data
 platforms_data.each do |platform_data|
   Platform.find_or_create_by!(
-    name:         platform_data["name"],
-    manufacturer: platform_data["manufacturer"],
-    release_date: platform_data["release_date"],
-    image_url:    platform_data.dig("cover", "url"), # Use dig to safely access nested data
-    summary:      platform_data["summary"]
+    name:    platform_data["name"],
+    summary: platform_data["summary"]
   )
 end
 

@@ -1,35 +1,26 @@
 class FetchIgdbData
-  def self.fetch_star_wars_games(page = 1, per_page = 20)
-    page = page.to_i
-    per_page = per_page.to_i
-
+  def self.fetch_star_wars_games
     igdb = IGDB.new
-    offset = (page - 1) * per_page
 
     body = <<~GRAPHQL
       fields name, summary, cover.url, platforms.name, genres.name;
-      offset #{offset};
-      limit #{per_page};
+      limit 100;
     GRAPHQL
 
     # where name ~ "Star Wars*";
 
     # Fetching data and returning the response
     response = igdb.query("/games", body)
-    Rails.logger.debug("Raw Response: #{response.inspect}")
 
-    # For debugging, check the response structure
-    puts response.inspect # This will print the response structure in your terminal.
+    Rails.logger.debug "Response Data: #{response.inspect}"
 
-    # Returning the data or an empty array if no data found
-    data = response["data"] || []
-    Rails.logger.debug(data)
+    response
   end
 
   def self.fetch_consoles
     igdb = IGDB.new
     body = <<~GRAPHQL
-      fields name, manufacturer, release_date, summary, cover.url;
+      fields name, summary;
       where category = 1;
       limit 50;
     GRAPHQL
@@ -37,7 +28,8 @@ class FetchIgdbData
     # Fetching platform data
     response = igdb.query("/platforms", body)
 
-    # Returning the data
-    data = response["data"] || []
+    Rails.logger.debug "Response Data: #{response.inspect}"
+
+    response
   end
 end
