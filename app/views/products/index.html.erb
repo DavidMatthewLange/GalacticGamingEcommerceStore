@@ -30,6 +30,12 @@
           <h3><%= product.name %></h3>
           <p><%= product.price %></p>
         <% end %>
+        <!-- Add to Cart Button -->
+        <%= form_with url: add_to_cart_cart_index_path, method: :post, local: true do %>
+          <%= hidden_field_tag :product_id, product.id %> <!-- Product ID -->
+          <%= number_field_tag :quantity, 1, min: 1, max: 100 %> <!-- Quantity input -->
+          <%= submit_tag 'Add to Cart', class: 'btn btn-primary' %>
+        <% end %>
       </div>
     <% end %>
   <% else %>

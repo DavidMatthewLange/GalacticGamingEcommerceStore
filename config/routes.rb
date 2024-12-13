@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get "orders/show"
+  get "checkout/new"
+  get "checkout/create"
+  get "checkout/calculate_total"
+  get "checkout/calculate_taxes"
+  get "checkout/calculate_tax_rate_for_product"
+  get "cart/show"
+  get "cart/update"
+  get "cart/remove"
+  get "cart/clear_cart"
   get "categories/index"
   get "categories/show"
   get "pages/home"
@@ -17,6 +27,15 @@ Rails.application.routes.draw do
   resources :categories, only: [:index, :show] do
     resources :products, only: [:index]
   end
+
+  resources :cart, only: [:show] do
+    post :add, on: :collection, to: 'cart#add', as: 'add_to_cart'
+    delete :remove, on: :collection
+    delete :clear_cart, on: :collection
+  end
+
+  get 'checkout', to: 'checkout#new'
+  post 'checkout', to: 'checkout#create'
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -1,0 +1,8 @@
+<h2>Checkout</h2>
+  <p>Total Price: <%= @total_price %></p>
+  <p>Tax: <%= @taxes %></p>
+  <p>Grand Total: <%= @grand_total %></p>
+
+  <%= form_with(model: @order, url: checkout_path, method: :post) do |f| %>
+    <%= f.submit "Place Order" %>
+  <% end %>

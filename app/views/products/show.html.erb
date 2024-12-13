@@ -2,4 +2,10 @@
 
 <%= render 'product', product: @product %> <!-- Product Partial -->
 
+<%= form_with url: add_to_cart_cart_index_path, method: :post, local: true do %>
+  <%= hidden_field_tag :product_id, @product.id %> <!-- Product ID -->
+  <%= number_field_tag :quantity, 1, min: 1, max: 100 %> <!-- Quantity input -->
+  <%= submit_tag 'Add to Cart', class: 'btn btn-primary' %>
+<% end %>
+
 <%= link_to 'Back to Products', products_path %>

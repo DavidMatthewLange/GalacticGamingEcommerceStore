@@ -1,0 +1,31 @@
+<h1>Your Cart</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cart.each do |product_id, details| %>
+      <% product = Product.find_by(id: product_id.to_i) %> <!-- Fetch product by id -->
+      <% if product && product.price %> <!-- Check if product and price exist -->
+        <tr>
+          <td><%= link_to product.name, product_path(product) %></td>
+          <td><%= product.price %></td>
+          <td><%= details[:quantity] || 0 %></td> <!-- Fallback for nil quantity -->
+          <td><%= product.price * (details[:quantity] || 0) %></td> <!-- Fallback for nil quantity -->
+        </tr>
+      <% else %>
+        <tr>
+          <td colspan="4">Product not found or price is missing</td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Clear Cart', clear_cart_cart_index_path, method: :delete, class: 'btn btn-danger' %>
