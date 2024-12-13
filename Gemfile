@@ -25,6 +25,8 @@ gem "httparty"
 
 # Devise for user authentication
 gem "devise", "~> 4.9.4"
+
+# ActiveAdmin for admin priviledges
 gem "activeadmin", "~> 3.2.5"
 
 # Stripe for payment processing
@@ -32,6 +34,10 @@ gem "stripe"
 
 # Active Storage for image uploads
 gem "active_storage_validations"
+
+# Rubocop
+gem "rubocop"
+gem "rubocop-rails"
 
 # Faker for data
 gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "main"
