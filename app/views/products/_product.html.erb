@@ -2,7 +2,7 @@
 <div class="product">
   <!-- Display the image -->
   <% if product.image.attached? %>
-    <%= image_tag product.image, alt: "#{product.name} Cover Art" %> <!-- ActiveStorage image -->
+    <%= image_tag product.image, alt: "#{product.name} Cover Art", size: "300x400" %> <!-- ActiveStorage image -->
   <% else %>
     <%= image_tag product.image_url, alt: "#{product.name} Cover Art" %> <!-- Fallback to IGDB image -->
   <% end %>
@@ -11,8 +11,7 @@
   <h3><%= product.name %></h3>
 
   <!-- Display the product description -->
-  <p><%= product.description %></p>
-
-  <!-- Display the product price -->
-  <p><%= number_to_currency(product.price) %></p>
-</div>
+  <p>
+    <%= product.description %><br>
+    <%= number_to_currency(product.price) %>
+  </p>

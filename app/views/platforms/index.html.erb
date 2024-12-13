@@ -2,12 +2,6 @@
 <h2>Platforms</h2>
 <div class="platforms">
   <% @platforms.each do |platform| %>
-    <div class="platform">
-      <%= link_to platform_path(platform) do %>
-      <!--image tag here-->
-        <h3><%= platform.name %></h3>
-        <p><%= platform.manufacturer %><br><%= platform.release_date %></p>
-      <% end %>
-    </div>
+    <%= render 'platforms/platform', platform: platform %>
   <% end %>
 </div>

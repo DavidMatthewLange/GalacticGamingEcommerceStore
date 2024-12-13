@@ -5,5 +5,6 @@ class PlatformsController < ApplicationController
 
   def show
     @platform = Platform.find(params[:id])
+    @products = @platform.products # Assuming a `has_many :products` association
   end
 end

@@ -1,2 +1,14 @@
-<h1>Platforms#show</h1>
-<p>Find me in app/views/platforms/show.html.erb</p>
+<h1><%= @platform.name %></h1>
+<p>
+  Manufacturer: <%= @platform.manufacturer %><br>
+  Release Date: <%= @platform.release_date %>
+</p>
+
+<h2>Products Available for <%= @platform.name %>:</h2>
+<ul>
+  <% @products.each do |product| %>
+    <%= render 'products/product', product: product %>
+  <% end %>
+</ul>
+
+<%= link_to 'Back to Platforms', platforms_path %>
