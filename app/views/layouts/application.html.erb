@@ -23,13 +23,18 @@
         <h2>Galactic Gaming</h2>
         <ul class="nav-links">
           <li><%= link_to "Home", root_path %></li>
-          <li><%= link_to "About", root_path %></li>
+          <li><%= link_to "About", about_path %></li>
+          <li><%= link_to "Contact Us", contact_path %></li>
           <li><%= link_to "Products", products_path %></li>
           <li><%= link_to "Consoles", platforms_path %></li>
-          <li><%= link_to "Contact Us", root_path %></li>
         </ul>
       </nav>
-    <%= yield %>
     </header>
+    <main>
+      <%= yield %>
+    </main>
+    <footer>
+      <p>&copy; 2024 Galactic Gaming</p>
+    </footer>
   </body>
 </html>

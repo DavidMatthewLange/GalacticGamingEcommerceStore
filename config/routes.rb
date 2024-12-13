@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get "pages/home"
+  get "pages/about"
+  get "pages/contact"
+  root "pages#home"
+  get "about", to: "pages#about"
+  get "contact", to: "pages#contact"
   get "platforms/index"
   get "platforms/show"
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -17,6 +23,5 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-   # Defines the root path route ("/")
-   root "products#index"
+  # Defines the root path route ("/")
 end
