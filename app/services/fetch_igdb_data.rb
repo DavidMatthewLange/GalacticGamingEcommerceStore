@@ -4,6 +4,7 @@ class FetchIgdbData
 
     body = <<~GRAPHQL
       fields name, summary, cover.url, platforms.name;
+      where franchises.name = "Star Wars";
       limit 100;
     GRAPHQL
 
