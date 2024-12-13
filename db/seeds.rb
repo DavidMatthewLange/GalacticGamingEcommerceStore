@@ -12,8 +12,8 @@ User.delete_all
 # AdminUser.delete_all
 
 # Fetching data from API
-games_data = FetchIGDBData.fetch_star_wars_games
-platforms_data = FetchIGDBData.fetch_consoles
+games_data = FetchIgdbData.fetch_star_wars_games
+platforms_data = FetchIgdbData.fetch_consoles
 
 # Create platforms from console API data
 platforms_data.each do |platform_data|
@@ -27,7 +27,7 @@ platforms_data.each do |platform_data|
 end
 
 # Create categories
-games.data.each do |game|
+games_data.each do |game|
   game["genres"].each do |genre|
     Category.find_or_create_by!(
       name:        genre["name"],
@@ -42,23 +42,29 @@ user = User.find_or_create_by!(name: "David Lange", email: "david.m.lange@outloo
 
 # Create products with dynamic categories
 
-games_date.each do |game|
+games_data.each do |game|
   game_platforms = game["platforms"].map do |platform_data|
     Platform.find_or_create_by!(name: platform_data["name"])
   end
-  game_categories = game["genres"].map { |genre| Category.find_by(name: genre["name"]) }.compact
-end
+  game_categories = game["genres"].map do |genre|
+    Category.find_or_create_by!(name: genre["name"])
+  end.compact
 
-product = Product.create!(
-  name:        game["name"],
-  description: game["summary"],
-  price:       Faker::Commerce.price(range: 1.00..100.00),
-  stock_qty:   Faker::Number.between(from: 1, to: 100),
-  categories:  game_categories,
-  platforms:   game_platforms
-  # categories:  [category],
-  # platforms:   [platform]
-)
+  product = Product.create!(
+    name:         game["name"],
+    description:  game["summary"],
+    image_url:    game["cover"] ? game["cover"]["url"] : nil,
+    release_date: game["first_release_date"] ? Time.at(game["first_release_date"]).to_date : nil,
+    developer:    game["developer"],
+    rating:       game["rating"],
+    price:        Faker::Commerce.price(range: 1.00..100.00),
+    stock_qty:    Faker::Number.between(from: 1, to: 100),
+    categories:   game_categories,
+    platforms:    game_platforms
+    # categories:  [category],
+    # platforms:   [platform]
+  )
+end
 
 # Create an order and order item
 order = Order.create!(user: user, status: "pending", total_price: 59.99)

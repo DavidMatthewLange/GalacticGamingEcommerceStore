@@ -5,9 +5,10 @@ class IGDB
   base_uri 'https://api.igdb.com/v4'
 
   def initialize
-    @client_id = ENV['narijy08ftdm0giqoa3wn4ala6g313']
-    @client_secret = ENV['9x9b2zimor5b2fh3aikjk8kz42xy0b']
+    @client_id = ENV['CLIENT_ID']
+    @client_secret = ENV['CLIENT_SECRET']
     @access_token = get_access_token
+    @token_expiry = Time.now + 3600  # Token expires in 1 hour
   end
 
   def get_access_token
@@ -16,10 +17,16 @@ class IGDB
       client_secret: @client_secret,
       grant_type: 'client_credentials'
     })
+
+    raise "Failed to get access token" unless response.code == 200
+
+    @token_expiry = Time.now + response['expires_in']
     response['access_token']
   end
 
   def query(endpoint, body)
+    refresh_access_token if Time.now > @token_expiry
+
     self.class.post(endpoint,
       headers: {
         'Client-ID' => @client_id,
@@ -27,5 +34,11 @@ class IGDB
       },
       body: body
     )
+  end
+
+  private
+
+  def refresh_access_token
+    @access_token = get_access_token
   end
 end
