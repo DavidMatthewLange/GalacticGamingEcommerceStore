@@ -57,6 +57,9 @@ product = Product.create!(
   platforms: [ platform ]
 )
 
+StaticPage.create!(title: "About", content: "This is the About page content.", slug: "about")
+StaticPage.create!(title: "Contact", content: "This is the Contact page content.", slug: "contact")
+
 # Create an order and order item
 order = Order.create!(user: user, status: "pending", total_price: 59.99)
 OrderItem.create!(quantity: 1, unit_price: 59.99, tax_rate: 0.07, order: order, product: product)
