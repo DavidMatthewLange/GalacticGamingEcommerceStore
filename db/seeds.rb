@@ -21,7 +21,7 @@ platforms_data.each do |platform_data|
     name:         platform_data["name"],
     manufacturer: platform_data["manufacturer"],
     release_date: platform_data["release_date"],
-    image_url:    platform_data.dig("cover", "url"),
+    image_url:    platform_data.dig("cover", "url"), # Use dig to safely access nested data
     summary:      platform_data["summary"]
   )
 end
@@ -29,6 +29,8 @@ end
 # Create categories
 games_data.each do |game|
   game["genres"].each do |genre|
+    next unless genre && genre["name"] # Skip if genre or genre name is nil
+
     Category.find_or_create_by!(
       name:        genre["name"],
       description: "#{genre['name']} games"
@@ -36,33 +38,29 @@ games_data.each do |game|
   end
 end
 
-# Create a sample user
-user = User.find_or_create_by!(name: "David Lange", email: "david.m.lange@outlook.com",
-                               password: "testingPass", role: "customer")
-
 # Create products with dynamic categories
-
 games_data.each do |game|
-  game_platforms = game["platforms"].map do |platform_data|
+  # Safely access platforms and genres
+  game_platforms = game["platforms"].to_a.map do |platform_data|
+    next unless platform_data && platform_data["name"] # Skip invalid platform data
+
     Platform.find_or_create_by!(name: platform_data["name"])
-  end
-  game_categories = game["genres"].map do |genre|
+  end.compact
+
+  game_categories = game["genres"].to_a.map do |genre|
+    next unless genre && genre["name"] # Skip invalid genre data
+
     Category.find_or_create_by!(name: genre["name"])
   end.compact
 
   product = Product.create!(
-    name:         game["name"],
-    description:  game["summary"],
-    image_url:    game["cover"] ? game["cover"]["url"] : nil,
-    release_date: game["first_release_date"] ? Time.at(game["first_release_date"]).to_date : nil,
-    developer:    game["developer"],
-    rating:       game["rating"],
-    price:        Faker::Commerce.price(range: 1.00..100.00),
-    stock_qty:    Faker::Number.between(from: 1, to: 100),
-    categories:   game_categories,
-    platforms:    game_platforms
-    # categories:  [category],
-    # platforms:   [platform]
+    name:        game["name"],
+    description: game["summary"],
+    image_url:   game["cover"] ? game["cover"]["url"] : nil,
+    price:       Faker::Commerce.price(range: 1.00..100.00),
+    stock_qty:   Faker::Number.between(from: 1, to: 100),
+    categories:  game_categories,
+    platforms:   game_platforms
   )
 end
 
