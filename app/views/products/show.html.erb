@@ -1,11 +1,5 @@
 <h1><%= @product.name %></h1>
 
-<% if @product.image.attached? %>
-  <%= image_tag @product.image, alt: "#{@product.name} Cover Art" %> <!-- ActiveStorage image -->
-<% else %>
-  <%= image_tag @product.image_url, alt: "#{@product.name} Cover Art" %> <!-- Fallback to IGDB image -->
-<% end %>
+<%= render 'product', product: @product %> <!-- Product Partial -->
 
-<p><%= @product.description %></p>
-<p>Price: <%= @product.price %></p>
 <%= link_to 'Back to Products', products_path %>
