@@ -49,7 +49,7 @@ gem "ruby-apicalypse"
 gem "dotenv-rails"
 
 # Kaminari
-gem "kaminari"
+gem 'kaminari'
 
 gem "sassc-rails"
 
